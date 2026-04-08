@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Copilot</title>
+</head>
+<body>
+
+<h1>Teacher Copilot 🤖</h1>
+
+<input type="text" id="question" placeholder="Ask something">
+<br><br>
+
+<button onclick="askAI()">Ask</button>
+
+<p id="response">Answer will appear here</p>
+
+<script>
+function askAI() {
+    alert("Working ✅");  // test
+
+    let question = document.getElementById("question").value;
+
+    fetch("http://127.0.0.1:5000/ask", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ question: question })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("response").innerText = "🤖 " + data.answer;
+    })
+    .catch(error => {
+        document.getElementById("response").innerText = "Error connecting to server";
+        console.log(error);
+    });
+}
+</script>
+
+</body>
+</html>
